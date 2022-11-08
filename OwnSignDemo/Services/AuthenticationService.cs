@@ -39,9 +39,10 @@ namespace OwnSignDemo.Services
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                 new(ClaimTypes.Name, user.Username),
+                new("sub", user.UserId.ToString())
                 }),
 
-                Expires = DateTime.UtcNow.AddMinutes(10),
+                Expires = DateTime.UtcNow.AddMinutes(600),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey),
                     SecurityAlgorithms.HmacSha256Signature)
             };

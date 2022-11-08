@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OwnSignDemo.Interfaces;
 using OwnSignDemo.Models;
+using OwnSignDemo.Models.InputModels;
 
 namespace OwnSignDemo.Controllers
 {
@@ -25,9 +26,9 @@ namespace OwnSignDemo.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("authenticate")]
-        public IActionResult Authenticate(User user)
+        public IActionResult Authenticate(LoginIM user)
         {
-            var token = _authenticationService.Authenticate(user);
+            var token = _authenticationService.Authenticate(new Models.User { Username = user.Username, Password = user.Password});
 
             if (token == null)
             {
