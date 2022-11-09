@@ -8,7 +8,9 @@ using OwnSignDemo.Services;
 
 namespace OwnSignDemo.Controllers
 {
-    [Route("api/v1/[controller]")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    [Route("api/[controller]")]
     [Authorize]
     [ApiController]
     public class UsersController : ControllerBase
@@ -101,7 +103,6 @@ namespace OwnSignDemo.Controllers
                     return BadRequest(ModelState);
                 }
                 return new ObjectResult(user);
-                // TODO
             }
             else
             {
