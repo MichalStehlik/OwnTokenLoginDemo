@@ -1,8 +1,28 @@
 import { useForm } from "react-hook-form"
+import axios from "axios"
+import { useAuthContext, SET_ACCESS_TOKEN } from "../../providers/AuthProvider"
+import { useNavigate } from "react-router-dom"
 
 export const Login = () => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const onSubmit = data => console.log(data);
+    const [, dispatch] = useAuthContext();
+    const navigate = useNavigate();
+    const onSubmit = data => {
+        axios.post("/api/Authentication/authenticate",
+        {
+            username: data.username,
+            password: data.password
+        }
+        )
+        .then(response => {
+            console.log(response.data);
+            dispatch({type: SET_ACCESS_TOKEN, payload: response.data.token});
+            navigate("/");
+        })
+        .catch(error => {
+            console.error(error);
+        })
+    };
     return (
         <>
         <h1>Login</h1>
