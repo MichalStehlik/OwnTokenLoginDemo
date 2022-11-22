@@ -63,12 +63,12 @@ builder.Services.AddAuthentication(/*JwtBearerDefaults.AuthenticationScheme*/opt
     options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = true,
-        ValidateAudience = false,
+        ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
         ValidIssuer = builder.Configuration["JWT:Issuer"],
         ClockSkew = TimeSpan.Zero,
-        //ValidAudience = builder.Configuration["JWT:Audience"],
+        ValidAudience = builder.Configuration["JWT:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(key)
     };
 });

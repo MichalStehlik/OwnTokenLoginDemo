@@ -33,16 +33,18 @@ namespace OwnSignDemo.Services
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var tokenKey = Encoding.UTF8.GetBytes(_configuration["JWT:Key"]);
-
+            int validityDuration = 10;
+            int.TryParse(_configuration["JWT:Expiration"], out validityDuration);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                new(ClaimTypes.Name, user.Username),
-                new("sub", user.UserId.ToString())
+                    new(ClaimTypes.Name, user.Username),
+                    new("sub", user.UserId.ToString())
                 }),
-
-                Expires = DateTime.UtcNow.AddMinutes(600),
+                Issuer = _configuration["JWT:Issuer"],
+                Audience = _configuration["JWT:Audience"],
+                Expires = DateTime.UtcNow.AddMinutes(validityDuration),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey),
                     SecurityAlgorithms.HmacSha256Signature)
             };
