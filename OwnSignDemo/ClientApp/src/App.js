@@ -6,8 +6,10 @@ import Title from "./pages/Front/Title"
 import Login from "./pages/Auth/Login"
 import Register from "./pages/Auth/Register"
 import NotFound from "./pages/Special/NotFound"
+import Unauthorized from "./pages/Special/Unauthorized"
 import List from "./pages/Users/List"
 import Create from "./pages/Users/Create"
+import Generate from "./pages/Users/Generate"
 
 import './App.css';
 
@@ -25,7 +27,9 @@ const App = () => {
       <Route path='/users' element={<UsersLayout />}>
         <Route index element={<List />} />
         <Route path='/users/create' element={<Create />} />
+        <Route path='/users/generate' element={<Generate />} />
       </Route>
+      <Route path="/unauthorized" element={<Unauthorized />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
     </>

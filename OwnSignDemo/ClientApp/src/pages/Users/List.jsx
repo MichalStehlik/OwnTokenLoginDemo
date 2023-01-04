@@ -1,4 +1,5 @@
 import {useState, useEffect} from "react"
+import { Link } from "react-router-dom"
 import { useAuthContext} from "../../providers/AuthProvider"
 import axios from "axios"
 
@@ -24,6 +25,8 @@ export const List = () => {
     },[accessToken]);
     return (
         <>
+            <Link to="create">Create</Link>
+            <Link to="generate">Generate</Link>
             <h1>List</h1>
             { loading 
             ? 

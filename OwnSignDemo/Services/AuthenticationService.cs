@@ -40,7 +40,8 @@ namespace OwnSignDemo.Services
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new(ClaimTypes.Name, user.Username),
-                    new("sub", user.UserId.ToString())
+                    new("sub", user.UserId.ToString()), 
+                    new("admin", user.Admin ? "1" : "0"),
                 }),
                 Issuer = _configuration["JWT:Issuer"],
                 Audience = _configuration["JWT:Audience"],
